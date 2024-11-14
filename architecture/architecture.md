@@ -1,7 +1,7 @@
 # Architecture
 
 
-![Architecture]([https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/media/eshoponcontainers-development-architecture.png](https://github.com/pxlit-projects/project-RuneIndestegePXL/blob/main/architecture/architecture%20diagram%20java.png))
+![Architecture Diagram](architecture/architecture%20diagram%20java.png)
 
 **API gateway**
 API Gateway functioneert als een enkel toegangspunt voor alle client-aanvragen(API calls) naar een microservices-architectuur. Het handelt inkomende verzoeken af door deze door te sturen naar de juiste services, vaak met behulp van load balancing. Ook heeft een API Gateway extra functionaliteiten zoals authenticatie, autorisatie, rate limiting, en logging. Dit biedt ook controle over de toegang tot de microservices en vereenvoudigt het de client-communicatie door verschillende services achter één enkel endpoint te verbergen.
