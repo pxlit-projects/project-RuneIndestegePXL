@@ -1,9 +1,13 @@
 # Architecture
 
 
-![eShopOnContainers Architecture](https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/media/eshoponcontainers-development-architecture.png)
+![Architecture]([https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/media/eshoponcontainers-development-architecture.png](https://github.com/pxlit-projects/project-RuneIndestegePXL/blob/main/architecture/architecture%20diagram%20java.png))
 
+**API gateway**
+API Gateway functioneert als een enkel toegangspunt voor alle client-aanvragen(API calls) naar een microservices-architectuur. Het handelt inkomende verzoeken af door deze door te sturen naar de juiste services, vaak met behulp van load balancing. Ook heeft een API Gateway extra functionaliteiten zoals authenticatie, autorisatie, rate limiting, en logging. Dit biedt ook controle over de toegang tot de microservices en vereenvoudigt het de client-communicatie door verschillende services achter één enkel endpoint te verbergen.
 
+**Angular web application**
+De Angular web application fungeert als de gebruikersinterface (UI) van het systeem en maakt het mogelijk voor gebruikers om te interfacen met de applicatie. Vanuit de UI worden API-verzoeken verstuurd naar de API Gateway, die deze doorstuurt naar de juiste microservices. De Angular-app ontvangt vervolgens de response van de microservices, verwerkt de gegevens en toont de resultaten aan de gebruiker. Dit zorgt voor een UI waar gebruikers posts kunnen bekijken, reacties kunnen plaatsen, en andere functionaliteit kunnen gebruiken.
 
 **Post Service**
 De Post Service is verantwoordelijk voor het beheren van de inhoud van de posts. Het houdt zich bezig met het aanmaken, opslaan, bewerken, publiceren, en beheren van de posts die redacteurs creëren.
