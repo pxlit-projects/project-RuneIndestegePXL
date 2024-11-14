@@ -19,7 +19,7 @@ De Review Service richt zich op het proces van goedkeuring of afwijzing van post
 De Comment Service behandelt alles wat met gebruikersreacties op gepubliceerde posts te maken heeft. Deze service zorgt ervoor dat gebruikers kunnen interacteren met de content door reacties te plaatsen, lezen, en beheren.
 
 **OpenFeign**
-OpenFeign is een declaratieve REST-client (Java) die wordt gebruikt om synchrone communicatie tussen microservices te vereenvoudigen. Dus wanneer een service (bijvoorbeeld de Post Service) een request naar een andere service (bijvoorbeeld de Review Service) moet sturen, het onmiddellijk een reactie verwacht en pas verdergaat als die reactie ontvangen is.
+OpenFeign is een REST-client (in Java) die wordt gebruikt om synchrone communicatie tussen microservices te vereenvoudigen. Dus wanneer een service (bijvoorbeeld de Post Service) een request naar een andere service (bijvoorbeeld de Review Service) moet sturen, het onmiddellijk een reactie verwacht en pas verdergaat als die reactie ontvangen is.
 
 **Eventbus**
 Een Eventbus (bijvoorbeeld RabbitMQ) behandelt asynchrone communicatie tussen microservices. In dit geval stuurt een service een event naar de Eventbus en gaat vervolgens verder zonder te wachten op een directe reactie. Andere services kunnen zich abonneren en reageren zodra ze dit event ontvangen. Geschikt voor situaties waarin je niet direct antwoord nodig hebt, enkel wilt melden dat er iets gebeurd is. Dit zorgt voor losse koppeling tussen de services. Bijvoorbeeld: wanneer een Post Service een nieuwe post publiceert, kan het een "Post Created"-event sturen naar de Eventbus. De Review Service kan zich abonneren op dit event en automatische controleprocessen starten.
