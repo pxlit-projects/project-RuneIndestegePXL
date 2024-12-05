@@ -1,1 +1,20 @@
-<p>post-form works!</p>
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Content</mat-label>
+      <textarea matInput formControlName="content" required rows="6"></textarea>
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">
+        Save as Draft
+      </button>
+      <button mat-raised-button color="accent" type="button" (click)="saveAndPublish()" [disabled]="!postForm.valid">
+        Publish
+      </button>
+    </div>
+  </form>

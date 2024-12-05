@@ -1,0 +1,10 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 20px;
+  }
+  .button-row {
+    display: flex;
+    gap: 16px;
+  }
