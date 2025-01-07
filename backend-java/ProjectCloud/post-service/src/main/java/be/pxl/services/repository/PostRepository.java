@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor<Post> {
     List<Post> findByStatus(PostStatus status);
-    List<Post> findByAuthorContainingIgnoreCase(String author);
-    List<Post> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+    List<Post> findByAuthorAndStatus(String user, PostStatus postStatus);
+    List<Post> findByAuthorAndStatusIn(String user, List<PostStatus> accepted);
 }

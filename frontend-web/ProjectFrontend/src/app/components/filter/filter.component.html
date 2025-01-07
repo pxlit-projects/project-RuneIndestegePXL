@@ -1,0 +1,27 @@
+<div class="container mx-auto">
+  <div class="flex items-center">
+    <form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm)">
+      <div class="flex items-center">
+          <mat-form-field class="mr-2">
+            <input matInput placeholder="Search by author" name="author" [(ngModel)]="filter.author">
+          </mat-form-field>
+          <mat-form-field class="mr-2">
+            <input matInput placeholder="Search by content" name="content" [(ngModel)]="filter.content">
+          </mat-form-field>
+          <mat-form-field class="mr-2">
+            <input matInput [matDatepicker]="startPicker" placeholder="Start Date" name="startDate" [(ngModel)]="filter.startDate">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="endPicker" placeholder="End Date" name="endDate" [(ngModel)]="filter.endDate">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" class="ml-2">
+            <mat-icon>search</mat-icon> Search
+            </button>
+      </div>
+    </form>
+  </div>
+</div>

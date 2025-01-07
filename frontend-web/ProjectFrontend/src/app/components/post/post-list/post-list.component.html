@@ -1,0 +1,8 @@
+
+<app-filter (filterChanged)="handleFilter($event)"></app-filter>
+
+@for(post of filteredData; track post.id) {
+    <app-post [post]="post" (click)="navigateToComments(post)"></app-post>
+} @empty {
+    <div class="text-center text-gray-500">No posts found</div>
+}

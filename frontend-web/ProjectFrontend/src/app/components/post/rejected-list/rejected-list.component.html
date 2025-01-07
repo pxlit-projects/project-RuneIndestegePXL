@@ -1,0 +1,5 @@
+@for(post of posts | async; track post.id) {
+  <app-post [post]="post" (click)="navigateToEditMenu(post)"></app-post>
+} @empty {
+  <div class="text-center text-gray-500">No posts found</div>
+}

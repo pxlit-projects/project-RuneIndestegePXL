@@ -17,21 +17,17 @@ public class Post {
     private String content;
 
     private String author;
-    private LocalDateTime createdAt;
-    private LocalDateTime lastModifiedAt;
 
+    private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
+    @Column(length = 12)
     private PostStatus status = PostStatus.DRAFT;
+
+    private String review = "";
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        this.lastModifiedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.lastModifiedAt = LocalDateTime.now();
     }
 }
 

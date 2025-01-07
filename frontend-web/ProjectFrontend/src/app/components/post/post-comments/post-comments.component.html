@@ -1,0 +1,47 @@
+<app-post [post]="post!"></app-post>
+
+<div class="comment-section mt-4 max-w-lg mx-auto">
+  @for (comment of comments |async; track comment.id) {
+    <div class="bg-gray-100 p-2 rounded-lg mb-2">
+      <div class="text-sm text-gray-500">{{ comment.username }}</div>
+      @if (editingCommentId === comment.id) {
+        <input 
+          type="text" 
+          [(ngModel)]="editedContent" 
+          class="w-full border p-2 rounded"
+          name="editContent"
+        />
+      } @else {
+        <div class="text-base">{{ comment.content }}</div>
+      }    
+
+      @if (currentUser === comment.username) {
+       <div class="flex space-x-2">
+        @if(editingCommentId !== comment.id){
+            <button (click)="startEdit(comment)" class=" hover:text-blue-700">
+            <mat-icon>edit</mat-icon>
+            </button>
+          } @else{
+            <button (click)="saveEdit(comment)" class="hover:text-green-700">
+            <mat-icon>save</mat-icon>
+            </button>
+            <button (click)="cancelEdit()" class="text-gray-500 hover:text-gray-700">
+            <mat-icon>cancel</mat-icon>
+            </button>
+          }
+
+          <button (click)="deleteComment(comment)" class="hover:text-red-700">
+            <mat-icon>delete</mat-icon>
+          </button>
+      </div>
+    }
+    </div>
+} @empty {
+  <div class="text-center text-gray-500">No comments yet</div>
+}
+  <form (ngSubmit)="addComment()" class="flex space-x-2">
+    <input type="text" [(ngModel)]="newCommentContent" name="content" placeholder="Add a comment" required class="border p-2 flex-grow" />
+    <button type="submit" ><mat-icon>send</mat-icon></button>
+
+  </form>
+</div>

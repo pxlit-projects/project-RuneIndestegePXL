@@ -1,0 +1,12 @@
+<div class="p-4 bg-white shadow rounded max-w-md mx-auto">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Select User</mat-label>
+    <mat-select [(ngModel)]="selectedUser" required="true" singleSelection="true">
+      @for (user of users; track $index) {
+        <mat-option [value]="user">{{ user.name }} ({{ user.role }})</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="selectUser()" class="mt-3 w-full">Select User</button>
+</div>

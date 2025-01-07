@@ -1,0 +1,7 @@
+<div class="max-w-lg rounded overflow-hidden shadow-lg m-4 p-4 bg-white cursor-pointer mx-auto">
+  <h2 class="font-bold text-xl mb-2">{{ (post | async)?.title }}</h2>
+  <p class="text-gray-700 text-base">{{ (post | async)?.content }}</p>
+  <div class="text-sm text-gray-500 mt-2">
+      @if((post | async)?.author){~{{ (post | async)?.author }}}        @if((post | async)?.createdAt){ {{ (post | async)?.createdAt | date: 'dd/MM/yyyy HH:mm'}} }
+  </div>
+</div>

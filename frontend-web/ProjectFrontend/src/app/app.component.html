@@ -1,6 +1,5 @@
-<mat-toolbar color="primary">
-  <span>Post Management</span>
-  <a mat-button routerLink="/posts">Posts</a>
-  <a mat-button routerLink="/create">Create Post</a>
-</mat-toolbar>
+@if(authService.getUserName !=null){
+  <app-navbar></app-navbar>
+}
 <router-outlet></router-outlet>
+

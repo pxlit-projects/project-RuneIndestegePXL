@@ -1,0 +1,70 @@
+<div class="max-w-2xl mx-auto p-4">
+  @if(post.review){
+    <mat-label class="p-4 bg-red-100 text-red-800 space-y-2">Review: {{ post.review }}</mat-label>
+  }
+  <br>
+  <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm.form.valid)" class="space-y-4">
+    <div class="space-y-2">
+      <mat-form-field class="w-full">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="post.title"
+          required
+          #title="ngModel"
+        />
+        @if (title.invalid && (title.dirty || title.touched)) {
+          <mat-error>
+            Title is required
+          </mat-error>
+        }
+
+      </mat-form-field>
+    </div>
+
+    <div class="space-y-2">
+      <mat-form-field class="w-full">
+        <mat-label>Content</mat-label>
+        <textarea
+          matInput
+          id="content"
+          name="content"
+          [(ngModel)]="post.content"
+          required
+          #content="ngModel"
+          rows="6"
+        ></textarea>
+        @if(content.invalid && (content.dirty || content.touched)){
+          <mat-error>
+            Content is required
+          </mat-error>
+        }
+      </mat-form-field>
+      
+  </div>
+
+
+    <div class="flex space-x-4">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!postForm.form.valid"
+      >
+        Submit Post
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        [disabled]="!postForm.form.valid"
+        (click)="saveDraft()"
+      >
+        Save as Draft
+      </button>
+    </div>
+  </form>
+</div>

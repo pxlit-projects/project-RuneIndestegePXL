@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: postservice_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
 
@@ -16,14 +18,24 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: commentservice_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3307:3307"
+      - "3307:3306"
 
   reviewservice_db:
     image: mysql:8.0
-    container_name: postservice_db
+    container_name: reviewservice_db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: postservice_db
+      MYSQL_DATABASE: reviewservice_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3308:3308"
+      - "3308:3306"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"

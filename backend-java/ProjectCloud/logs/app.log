@@ -1,0 +1,556 @@
+2025-01-02 22:33:59 INFO  b.p.s.DiscoveryServiceApplication - Starting DiscoveryServiceApplication using Java 21.0.2 with PID 193924 (C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\discovery-service\target\classes started by runei in C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud)
+2025-01-02 22:33:59 INFO  b.p.s.DiscoveryServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-01-02 22:33:59 INFO  o.s.b.d.c.l.DockerComposeLifecycleManager - Using Docker Compose file C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\docker-compose.yml
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli - time="2025-01-02T22:34:00+01:00" level=warning msg="C:\\Users\\runei\\Documents\\Github\\project-RuneIndestegePXL\\backend-java\\ProjectCloud\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Created
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Created
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Created
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Created
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Starting
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Starting
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Starting
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Starting
+2025-01-02 22:34:00 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Started
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Started
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Started
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Started
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Waiting
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Waiting
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Waiting
+2025-01-02 22:34:01 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Waiting
+2025-01-02 22:34:02 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Healthy
+2025-01-02 22:34:02 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Healthy
+2025-01-02 22:34:02 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Healthy
+2025-01-02 22:34:02 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Healthy
+2025-01-02 22:36:02 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.boot.docker.compose.lifecycle.ReadinessTimeoutException: Readiness timeout of PT2M reached while waiting for services [commentservice_db, reviewservice_db]
+	at org.springframework.boot.docker.compose.lifecycle.ServiceReadinessChecks.waitUntilReady(ServiceReadinessChecks.java:83)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeLifecycleManager.start(DockerComposeLifecycleManager.java:145)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeListener.onApplicationEvent(DockerComposeListener.java:53)
+	at org.springframework.boot.docker.compose.lifecycle.DockerComposeListener.onApplicationEvent(DockerComposeListener.java:35)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.contextLoaded(EventPublishingRunListener.java:98)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$contextLoaded$4(SpringApplicationRunListeners.java:72)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.contextLoaded(SpringApplicationRunListeners.java:72)
+	at org.springframework.boot.SpringApplication.prepareContext(SpringApplication.java:416)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:317)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at be.pxl.services.DiscoveryServiceApplication.main(DiscoveryServiceApplication.java:17)
+	Suppressed: org.springframework.boot.docker.compose.lifecycle.ServiceNotReadyException: Immediate disconnect while connecting to port 3307
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:71)
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:58)
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:48)
+		at org.springframework.boot.docker.compose.lifecycle.ServiceReadinessChecks.check(ServiceReadinessChecks.java:97)
+		at org.springframework.boot.docker.compose.lifecycle.ServiceReadinessChecks.waitUntilReady(ServiceReadinessChecks.java:77)
+		... 19 common frames omitted
+	Suppressed: org.springframework.boot.docker.compose.lifecycle.ServiceNotReadyException: Immediate disconnect while connecting to port 3308
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:71)
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:58)
+		at org.springframework.boot.docker.compose.lifecycle.TcpConnectServiceReadinessCheck.check(TcpConnectServiceReadinessCheck.java:48)
+		at org.springframework.boot.docker.compose.lifecycle.ServiceReadinessChecks.check(ServiceReadinessChecks.java:97)
+		at org.springframework.boot.docker.compose.lifecycle.ServiceReadinessChecks.waitUntilReady(ServiceReadinessChecks.java:77)
+		... 19 common frames omitted
+2025-01-02 22:37:44 INFO  b.p.s.DiscoveryServiceApplication - Starting DiscoveryServiceApplication using Java 21.0.2 with PID 182364 (C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\discovery-service\target\classes started by runei in C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud)
+2025-01-02 22:37:44 INFO  b.p.s.DiscoveryServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-01-02 22:37:44 INFO  o.s.b.d.c.l.DockerComposeLifecycleManager - Using Docker Compose file C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\docker-compose.yml
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli - time="2025-01-02T22:37:45+01:00" level=warning msg="C:\\Users\\runei\\Documents\\Github\\project-RuneIndestegePXL\\backend-java\\ProjectCloud\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Created
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Created
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Created
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Created
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Starting
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Starting
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Starting
+2025-01-02 22:37:45 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Starting
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Started
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Started
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Started
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Started
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Waiting
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Waiting
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Waiting
+2025-01-02 22:37:46 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Waiting
+2025-01-02 22:37:47 INFO  o.s.b.docker.compose.core.DockerCli -  Container reviewservice_db  Healthy
+2025-01-02 22:37:47 INFO  o.s.b.docker.compose.core.DockerCli -  Container projectcloud-rabbitmq-1  Healthy
+2025-01-02 22:37:47 INFO  o.s.b.docker.compose.core.DockerCli -  Container postservice_db  Healthy
+2025-01-02 22:37:47 INFO  o.s.b.docker.compose.core.DockerCli -  Container commentservice_db  Healthy
+2025-01-02T22:39:19.525+01:00  INFO 80648 --- [main] b.p.s.DiscoveryServiceApplication        : Starting DiscoveryServiceApplication using Java 21.0.2 with PID 80648 (C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\discovery-service\target\classes started by runei in C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud)
+2025-01-02T22:39:19.527+01:00  INFO 80648 --- [main] b.p.s.DiscoveryServiceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-01-02T22:39:19.570+01:00  INFO 80648 --- [main] .s.b.d.c.l.DockerComposeLifecycleManager : Using Docker Compose file C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\docker-compose.yml
+2025-01-02T22:39:20.551+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   : time="2025-01-02T22:39:20+01:00" level=warning msg="C:\\Users\\runei\\Documents\\Github\\project-RuneIndestegePXL\\backend-java\\ProjectCloud\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+2025-01-02T22:39:20.562+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container postservice_db  Created
+2025-01-02T22:39:20.562+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container reviewservice_db  Created
+2025-01-02T22:39:20.562+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container commentservice_db  Created
+2025-01-02T22:39:20.562+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container projectcloud-rabbitmq-1  Created
+2025-01-02T22:39:20.565+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container reviewservice_db  Starting
+2025-01-02T22:39:20.565+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container postservice_db  Starting
+2025-01-02T22:39:20.565+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container commentservice_db  Starting
+2025-01-02T22:39:20.565+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container projectcloud-rabbitmq-1  Starting
+2025-01-02T22:39:21.152+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container postservice_db  Started
+2025-01-02T22:39:21.152+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container reviewservice_db  Started
+2025-01-02T22:39:21.451+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container projectcloud-rabbitmq-1  Started
+2025-01-02T22:39:21.461+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container commentservice_db  Started
+2025-01-02T22:39:21.461+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container commentservice_db  Waiting
+2025-01-02T22:39:21.462+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container reviewservice_db  Waiting
+2025-01-02T22:39:21.462+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container projectcloud-rabbitmq-1  Waiting
+2025-01-02T22:39:21.463+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container postservice_db  Waiting
+2025-01-02T22:39:21.977+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container commentservice_db  Healthy
+2025-01-02T22:39:21.978+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container projectcloud-rabbitmq-1  Healthy
+2025-01-02T22:39:21.978+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container postservice_db  Healthy
+2025-01-02T22:39:21.980+01:00  INFO 80648 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container reviewservice_db  Healthy
+2025-01-02 23:50:58 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-02 23:51:23 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:03:18 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:05:26 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:06:15 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:06:15 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:07:09 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:07:09 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:07:34 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:07:34 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:08:10 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:08:10 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:08:27 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:08:27 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:11:45 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:11:45 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:11:52 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:11:52 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:17:04 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:17:04 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:20:15 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:20:15 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
+2025-01-03 00:22:12 DEBUG o.s.b.d.LoggingFailureAnalysisReporter - Application failed to start due to an exception
+org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor$ImportException: No spring.config.import set
+	at org.springframework.cloud.commons.ConfigDataMissingEnvironmentPostProcessor.postProcessEnvironment(ConfigDataMissingEnvironmentPostProcessor.java:82)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:109)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:94)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:370)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at be.pxl.services.PostServiceApplication.main(PostServiceApplication.java:18)
+2025-01-03 00:22:12 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+No spring.config.import property has been defined
+
+Action:
+
+Add a spring.config.import=configserver: property to your configuration.
+	If configuration is not required add spring.config.import=optional:configserver: instead.
+	To disable this check, set spring.cloud.config.enabled=false or 
+	spring.cloud.config.import-check.enabled=false.
+
