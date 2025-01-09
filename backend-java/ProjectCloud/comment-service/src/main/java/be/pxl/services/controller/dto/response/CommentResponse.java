@@ -1,8 +1,6 @@
 package be.pxl.services.controller.dto.response;
 
-import java.time.LocalDateTime;
-
-public record CommentDto (
+public record CommentResponse(
         Long id,
         Long postId,
         String content,

@@ -27,15 +27,12 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class CreateUpdateComponent implements OnInit {
   private postService: PostService = inject(PostService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
+  private router: Router = inject(Router);
   post: Post = {
     title: '',
     content: ''
   };
   isEdit = false;
-
-  constructor(
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.postService.selectedPost$.subscribe(selectedPost => {
@@ -44,6 +41,11 @@ export class CreateUpdateComponent implements OnInit {
         this.isEdit = true;
       }
     });
+    
+  }
+
+  ngOnDestroy(): void {
+    this.postService.clearSelectedPost();
   }
 
   onSubmit(isValid: boolean): void {

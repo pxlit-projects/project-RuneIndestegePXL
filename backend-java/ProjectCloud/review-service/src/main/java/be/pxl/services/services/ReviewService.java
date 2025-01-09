@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ReviewService {
+public class ReviewService implements IReviewService {
     private final ReviewRepository reviewRepository;
     private final NotificationClient notificationClient;
     private static final Logger log = LoggerFactory.getLogger(ReviewService.class.getName());
@@ -42,20 +42,6 @@ public class ReviewService {
         postReview.setPostId(postReviewDTO.postId());
         reviewRepository.save(postReview);
         log.info("Post with id: {} saved for review", postReviewDTO.postId());
-    }
-
-    public PostReviewDTO getReviewById(Long id) {
-        log.info("Getting review by id: {}", id);
-        return reviewRepository.findById(id)
-                .map(postReview -> new PostReviewDTO(
-                        postReview.getId(),
-                        postReview.getReview(),
-                        postReview.getTitle(),
-                        postReview.getContent(),
-                        postReview.getAuthor(),
-                        postReview.getPostId(),
-                        postReview.isApproved()
-                )).orElseThrow(() -> new PostReviewNotFoundException("Post not found"));
     }
 
     public List<PostReviewDTO> getAllReviewablePosts() {
@@ -93,8 +79,7 @@ public class ReviewService {
 
         NotificationDTO notificationDTO = new NotificationDTO(
                 "Your post \"" + postReview.getTitle() + "\" has been " + (postReviewDTO.approved() ? "approved" : "rejected"),
-                postReview.getAuthor(),
-                postReview.getId()
+                postReview.getAuthor()
         );
         //send notification to author
         notificationClient.sendNotification(notificationDTO);

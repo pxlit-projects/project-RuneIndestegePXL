@@ -2,6 +2,7 @@ package be.pxl.services.controller;
 
 import be.pxl.services.controller.dto.PostReviewDTO;
 import be.pxl.services.exception.UserNotAuthorizedException;
+import be.pxl.services.services.IReviewService;
 import be.pxl.services.services.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,21 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reviews")
-@CrossOrigin("*")
 public class ReviewController {
-    private final ReviewService reviewService;
+    private final IReviewService reviewService;
     private static final Logger log = LoggerFactory.getLogger((ReviewController.class.getName()));
     @Autowired
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(IReviewService reviewService) {
         this.reviewService = reviewService;
-    }
-
-//ongeberuikt
-    @GetMapping("/{id}")
-    public ResponseEntity<PostReviewDTO> getReviewById(@RequestHeader("Role") String role,@PathVariable Long id) {
-        checkIfUserEditor(role);
-        log.info("Getting review by id: {}", id);
-        return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
     @GetMapping

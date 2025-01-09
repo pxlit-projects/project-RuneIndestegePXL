@@ -49,17 +49,14 @@
 
     <div class="flex space-x-4">
       <button
-        mat-raised-button
-        color="primary"
-        type="submit"
+mat-raised-button color="primary" type="submit" class="ml-2" style="background-color: white; color: black;"
         [disabled]="!postForm.form.valid"
       >
         Submit Post
       </button>
       <button
         mat-raised-button
-        color="accent"
-        type="button"
+        color="primary" type="submit" class="ml-2" style="background-color: white; color: black;"        type="button"
         [disabled]="!postForm.form.valid"
         (click)="saveDraft()"
       >

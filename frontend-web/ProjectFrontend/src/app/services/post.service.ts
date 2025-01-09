@@ -20,8 +20,9 @@ export class PostService {
   }
 
   private selectedPostSubject = new BehaviorSubject<Post | null>(null);
-  public selectedPost$ = this.selectedPostSubject.asObservable();
 
+  public selectedPost$ = this.selectedPostSubject.asObservable();
+  public selectedPost = this.selectedPostSubject.value;
   setSelectedPost(post: Post): void {
     this.selectedPostSubject.next(post);
   }
@@ -39,6 +40,10 @@ export class PostService {
       post = { title, content };
     }
     return this.http.post<Post>(this.apiUrl, post, { headers: this.getHeaders() });
+  }
+
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   getDraftPosts(): Observable<Post[]> {

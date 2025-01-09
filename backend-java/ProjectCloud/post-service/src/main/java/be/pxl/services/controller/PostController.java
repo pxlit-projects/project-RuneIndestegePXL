@@ -2,9 +2,9 @@ package be.pxl.services.controller;
 
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.response.PostReviewedResponse;
-import be.pxl.services.controller.dto.PostSearchCriteria;
 import be.pxl.services.controller.request.PostUpdateRequest;
 import be.pxl.services.exception.UserNotAuthorizedException;
+import be.pxl.services.services.IPostService;
 import be.pxl.services.services.PostService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -18,9 +18,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class PostController {
-    private final PostService postService;
+    private final IPostService postService;
     private static final Logger log = LoggerFactory.getLogger(PostController.class.getName());
 
     @Autowired
@@ -31,7 +31,15 @@ public class PostController {
     @GetMapping("/{id}/exists")
     public ResponseEntity<Boolean> checkIfPostExists(@PathVariable Long id) {
         log.info("Checking if post with id: {} exists", id);
+
         return ResponseEntity.ok(postService.doesPostExist(id));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPublishedPostById(@PathVariable Long id) {
+        log.info("Getting post with id: {}", id);
+        PostDTO post = postService.getPublishedPostById(id);
+        return ResponseEntity.ok(post);
     }
 
     @PostMapping
@@ -41,7 +49,6 @@ public class PostController {
             @RequestHeader("Role") String role) {
         log.info("Creating post as draft");
         checkIfUserEditor(role);
-
         PostDTO createdPost = postService.createPostAsDraft(post, user);
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }

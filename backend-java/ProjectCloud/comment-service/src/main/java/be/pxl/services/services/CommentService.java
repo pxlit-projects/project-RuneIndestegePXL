@@ -1,6 +1,6 @@
 package be.pxl.services.services;
 
-import be.pxl.services.controller.dto.response.CommentDto;
+import be.pxl.services.controller.dto.response.CommentResponse;
 import be.pxl.services.controller.dto.request.CommentChangeRequest;
 import be.pxl.services.controller.dto.request.CommentCreateRequest;
 import be.pxl.services.domain.Comment;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CommentService {
+public class CommentService implements ICommentService {
     private final CommentRepository commentRepository;
     private final PostClient postClient;
     private static final Logger log = LoggerFactory.getLogger(CommentService.class.getName());
@@ -28,7 +28,7 @@ public class CommentService {
         this.postClient = postClient;
     }
 
-    public List<CommentDto> getComments(long postId) {
+    public List<CommentResponse> getComments(long postId) {
         return commentRepository.findByPostId(postId).stream()
                 .map(this::mapToDto)
                 .toList();
@@ -72,8 +72,8 @@ public class CommentService {
         log.info("Comment with id: {} updated", commentId);
     }
 
-    private CommentDto mapToDto(Comment comment) {
-        return new CommentDto(
+    public CommentResponse mapToDto(Comment comment) {
+        return new CommentResponse(
                 comment.getId(),
                 comment.getPostId(),
                 comment.getContent(),

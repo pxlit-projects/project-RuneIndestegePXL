@@ -1,5 +1,8 @@
-<app-post [post]="post!"></app-post>
-
+@if (observablePost$ | async; as post) {
+  <app-post [post]="post"/>
+} @else {
+  <div>Loading post...</div>
+}
 <div class="comment-section mt-4 max-w-lg mx-auto">
   @for (comment of comments |async; track comment.id) {
     <div class="bg-gray-100 p-2 rounded-lg mb-2">

@@ -3,8 +3,9 @@ package be.pxl.services.controller;
 
 import be.pxl.services.controller.dto.request.CommentChangeRequest;
 import be.pxl.services.controller.dto.request.CommentCreateRequest;
-import be.pxl.services.controller.dto.response.CommentDto;
+import be.pxl.services.controller.dto.response.CommentResponse;
 import be.pxl.services.services.CommentService;
+import be.pxl.services.services.ICommentService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +15,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin("*")
 public class CommentController {
-    private final CommentService commentService;
+    private final ICommentService commentService;
     private static final Logger log = LoggerFactory.getLogger(CommentController.class.getName());
 
-    public CommentController(CommentService commentService) {
+    public CommentController(ICommentService commentService) {
         this.commentService = commentService;
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<List<CommentDto>> getComments(@PathVariable long postId) {
+    public ResponseEntity<List<CommentResponse>> getComments(@PathVariable long postId) {
         log.info("Getting comments for post with id: {}", postId);
-        List<CommentDto> comments = commentService.getComments(postId);
+        List<CommentResponse> comments = commentService.getComments(postId);
         return ResponseEntity.ok(comments);
     }
 

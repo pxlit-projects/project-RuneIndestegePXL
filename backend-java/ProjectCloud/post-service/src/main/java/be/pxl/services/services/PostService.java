@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostService {
+public class PostService implements IPostService {
     private final PostRepository postRepository;
     private static final Logger log = LoggerFactory.getLogger(PostService.class.getName());
     private final RabbitTemplate rabbitTemplate;
@@ -52,6 +52,7 @@ public class PostService {
         Post post = convertPostDTOToPost(postDTO);
         post.setAuthor(user);
         post.setStatus(PostStatus.DRAFT);
+        post.setReview(null);
         log.info("Post created");
         return convertPostToPostDTO(postRepository.save(post));
     }
@@ -192,6 +193,13 @@ public class PostService {
                 post.getStatus() == PostStatus.ACCEPTED,
                 post.getReview()
         );
+    }
+
+    public PostDTO getPublishedPostById(Long id) {
+        return postRepository.findById(id)
+                .filter(post -> post.getStatus() == PostStatus.PUBLISHED)
+                .map(this::convertPostToPostDTO)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
     }
 }
 

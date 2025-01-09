@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PostService } from '../../../services/post.service';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -13,25 +13,21 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './draft-list.component.html',
   styleUrls: ['./draft-list.component.css']
 })
-export class DraftListComponent  {
-
+export class DraftListComponent  implements OnInit {
+  private postService: PostService = inject(PostService);
+  private router: Router = inject(Router);
   public posts: Observable<Post[]> = of([]);
-  constructor(
-      private postService: PostService,
-      private router: Router
-    ) {
+  
+  ngOnInit(): void {
       this.posts = this.postService.getDraftPosts();
-    }
+  }
 
   navigateToDraft(post: Post) {
     this.postService.setSelectedPost(post);
-    this.router.navigate(['/create-update'], {
-      state: { post }
-  });
+    this.router.navigate(['/create-update']);
 }
   navigateToNewDraft() {
     this.postService.clearSelectedPost();
     this.router.navigate(['/create-update']);
   }
-
 }

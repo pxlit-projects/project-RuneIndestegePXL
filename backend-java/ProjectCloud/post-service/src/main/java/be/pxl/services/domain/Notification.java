@@ -18,6 +18,4 @@ public class Notification {
     private String message;
 
     private String author;
-
-    private Long postId;
 }

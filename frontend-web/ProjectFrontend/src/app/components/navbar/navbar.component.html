@@ -1,7 +1,6 @@
-@if (authService.getUserName() !== '') {
+@if (isUser) {
   <mat-toolbar color="primary">
     <div class="w-full flex items-center justify-between">
-      <!-- Left section with navigation links -->
       <div class="flex items-center space-x-2">
         <a mat-button [routerLink]="['/posts']">
           <div class="flex items-center">
@@ -11,25 +10,25 @@
         </a>
         
         @if (isEditor || isHeadEditor) {
-          <a mat-button [routerLink]="['/create-update']">
+          <a mat-button [routerLink]="['/create-update']" routerLinkActive="active">
             <div class="flex items-center">
               <mat-icon class="mr-1">create</mat-icon>
               <span>Create Post</span>
             </div>
           </a>
-          <a mat-button [routerLink]="['/drafts']">
+          <a mat-button [routerLink]="['/drafts']" routerLinkActive="active">
             <div class="flex items-center">
               <mat-icon class="mr-1">drafts</mat-icon>
               <span>Drafts</span>
             </div>
           </a>
-          <a mat-button [routerLink]="['/approved']">
+          <a mat-button [routerLink]="['/approved']" routerLinkActive="active">
             <div class="flex items-center">
               <mat-icon class="mr-1">check_circle</mat-icon>
               <span>Approved</span>
             </div>
           </a>
-          <a mat-button [routerLink]="['/rejected']">
+          <a mat-button [routerLink]="['/rejected']" routerLinkActive="active">
             <div class="flex items-center">
               <mat-icon class="mr-1">highlight_off</mat-icon>
               <span>Disapproved</span>
@@ -38,7 +37,7 @@
         }
 
         @if (isHeadEditor) {
-          <a mat-button [routerLink]="['/reviews']">
+          <a mat-button [routerLink]="['/reviews']" routerLinkActive="active">
             <div class="flex items-center">
               <mat-icon class="mr-1">rate_review</mat-icon>
               <span>Reviews</span>
@@ -47,7 +46,26 @@
         }
       </div>
 
-      <!-- Right section with user info and logout -->
+      <span class="spacer"></span>
+@if(authService.getUserRole() === 'editor')
+{  
+  <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+    <mat-icon>{{ hasUnreadNotifications ? 'notifications_active' : 'notifications' }}</mat-icon>
+  </button>
+  <mat-menu #notificationMenu="matMenu">
+    @if(notifications.length > 0) {
+      @for(notification of notifications; track notification.message) {
+        <button mat-menu-item>
+          {{ notification.message }}
+        </button>
+      }
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="readAllNotifications()">Mark all as read</button>
+    } @else {
+      <button mat-menu-item disabled>No notifications</button>
+    }
+  </mat-menu>
+}
       <div class="flex items-center space-x-4">
         <span class="flex items-center">
           <mat-icon class="mr-1">account_circle</mat-icon>

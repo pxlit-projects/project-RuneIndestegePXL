@@ -2,6 +2,8 @@ package be.pxl.services.controller;
 
 
 import be.pxl.services.controller.dto.NotificationDTO;
+import be.pxl.services.controller.response.NotificationResponse;
+import be.pxl.services.services.INotificationService;
 import be.pxl.services.services.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/notifications")
 public class NotificationController {
 
-    private final NotificationService notificationService;
+    private final INotificationService notificationService;
     private static final Logger log = LoggerFactory.getLogger(NotificationController.class.getName());
 
     @Autowired
@@ -24,7 +26,7 @@ public class NotificationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<NotificationDTO>> getNotifications(@RequestHeader("User") String user) {
+    public ResponseEntity<List<NotificationResponse>> getNotifications(@RequestHeader("User") String user) {
         log.info("Getting all notifications for {}", user);
         return ResponseEntity.ok(notificationService.getNotifications(user));
     }
@@ -34,10 +36,10 @@ public class NotificationController {
         notificationService.sendNotification(dto);
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> markAsRead(@RequestHeader("User") String user, @PathVariable Long id) {
+    @PutMapping
+    public ResponseEntity<Void> markAsRead(@RequestHeader("User") String user) {
         log.info("mark notification as read for {}", user);
-        notificationService.markAsRead(id, user);
+        notificationService.markAllAsRead(user);
         return ResponseEntity.ok().build();
     }
 }

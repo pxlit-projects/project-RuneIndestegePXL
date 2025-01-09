@@ -1,17 +1,17 @@
 package be.pxl.services.services;
 
 import be.pxl.services.controller.dto.NotificationDTO;
+import be.pxl.services.controller.response.NotificationResponse;
 import be.pxl.services.domain.Notification;
-import be.pxl.services.exception.NotificationNotFoundException;
-import be.pxl.services.exception.UserNotAuthorizedException;
 import be.pxl.services.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class NotificationService {
+public class NotificationService implements INotificationService {
     private final NotificationRepository notificationRepository;
 
     @Autowired
@@ -19,32 +19,21 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
-    public List<NotificationDTO> getNotifications(String user) {
+    public List<NotificationResponse> getNotifications(String user) {
         return notificationRepository.findByAuthor(user).stream().map(
                 notification ->
-                new NotificationDTO(
-                        notification.getId(),
-                        notification.getMessage(),
-                        notification.getAuthor(),
-                        notification.getPostId()
-                )
-        ).toList();
+                new NotificationResponse(notification.getMessage())).toList();
     }
 
     public void sendNotification(NotificationDTO dto) {
         Notification notification = new Notification();
         notification.setAuthor(dto.author());
         notification.setMessage(dto.message());
-        notification.setPostId(dto.postId());
         notificationRepository.save(notification);
     }
 
-    public void markAsRead(Long id, String user) {
-        Notification notification = notificationRepository.findById(id)
-                .orElseThrow(() -> new NotificationNotFoundException("Notification not found"));
-        if (!notification.getAuthor().equals(user)) {
-            throw new UserNotAuthorizedException("User is not the author of the notification");
-        }
-        notificationRepository.deleteById(id);
+    @Transactional
+    public void markAllAsRead(String user) {
+        notificationRepository.deleteAllByAuthor(user);
     }
 }

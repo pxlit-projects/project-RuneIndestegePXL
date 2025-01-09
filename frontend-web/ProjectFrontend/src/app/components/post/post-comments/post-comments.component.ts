@@ -3,18 +3,19 @@ import { PostService } from '../../../services/post.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Post } from '../../../models/post.model';
 import { CommentService } from '../../../services/comment.service';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Comment  as PostComment} from '../../../models/comment.model';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostComponent } from '../post/post.component';
 import { MatIcon } from '@angular/material/icon';
+import { ActivatedRoute } from '@angular/router';
+import { PostComponent } from '../post/post.component';
 @Component({
   selector: 'app-post-comments',
   standalone: true,
-  imports: [AsyncPipe, FormsModule, PostComponent, MatIcon],
+  imports: [AsyncPipe, FormsModule, AsyncPipe, MatIcon, PostComponent],
   templateUrl: './post-comments.component.html',
   styleUrls: ['./post-comments.component.css']
 })
@@ -29,15 +30,14 @@ export class PostCommentsComponent implements OnInit {
   public newCommentContent: string = '';
   public editingCommentId: number | null = null;
   public editedContent: string = '';
-  private refreshComments$ = new BehaviorSubject<void>(undefined);
-  public post: Post | null = null;
 
-  ngOnInit(): void {
-    this.postService.selectedPost$.pipe(take(1)).subscribe(post => {
-      if (post) {
-        this.post = post;
-      }
-    });
+  private refreshComments$ = new BehaviorSubject<void>(undefined);
+
+  route: ActivatedRoute = inject(ActivatedRoute);
+  id: number = this.route.snapshot.params['id'];
+  observablePost$: Observable<Post> = this.postService.getPostById(this.id);
+
+  ngOnInit(): void {    
     this.refreshComments();
 
   }
@@ -45,8 +45,8 @@ export class PostCommentsComponent implements OnInit {
   private refreshComments(): void {
     this.comments = this.refreshComments$.pipe(
       switchMap(() => {
-        if (this.post?.id) {
-          return this.commentService.getComments(this.post.id);
+        if (this.id) {
+          return this.commentService.getComments(this.id);
         }
         return of([]);
       })
@@ -55,8 +55,8 @@ export class PostCommentsComponent implements OnInit {
   }
 
   addComment(): void {
-    if (this.post && this.post.id) {
-      this.commentService.createComment(this.post.id, this.newCommentContent).subscribe({
+    if (this.id) {
+      this.commentService.createComment(this.id, this.newCommentContent).subscribe({
         next: () => {
           this.newCommentContent = '';
           this.refreshComments$.next();

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AuthService } from './services/auth.service';
@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 })
 
 export class AppComponent {
-  constructor(@Inject(AuthService) public authService: AuthService) {}
+  public authService = inject(AuthService);
   title = 'ProjectFrontend';
-
 }

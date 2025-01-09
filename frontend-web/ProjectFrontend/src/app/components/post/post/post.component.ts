@@ -9,5 +9,5 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-  @Input() post!: Post;
+  @Input() post!: Post ;
 }

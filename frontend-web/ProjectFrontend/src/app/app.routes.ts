@@ -8,24 +8,28 @@ import { DraftListComponent } from './components/post/draft-list/draft-list.comp
 import { CreateUpdateComponent } from './components/post/create-update/create-update.component';
 import { RejectedListComponent } from './components/post/rejected-list/rejected-list.component';
 import { ApprovedListComponent } from './components/post/approved-list/approved-list.component';
+import { Error404Component } from './components/Error404/Error404.component';
+import { authGuard } from './guards/auth.guard';
+//import { confirmLeaveGuard } from './guards/confirm-leave.guard';
 
 
 export const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: UserSelectionComponent },
 
-  { path: 'posts', component: PostListComponent },
-  { path: 'post-comments', component: PostCommentsComponent },
+  { path: 'posts', component: PostListComponent, canActivate: [authGuard] ,  data: { role: 'guest' }},
+  { path: 'post-comments/:id', component: PostCommentsComponent, canActivate: [authGuard],  data: { role: 'guest' }},
 
-  { path: 'notifications', component: PostListComponent },
+  { path: 'notifications', component: PostListComponent, canActivate: [authGuard] ,  data: { role: 'editor' }},
 
-  { path: 'drafts', component: DraftListComponent },
-  { path: 'create-update', component: CreateUpdateComponent},
+  { path: 'drafts', component: DraftListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
+  { path: 'create-update', component: CreateUpdateComponent, canActivate: [authGuard] /*, canDeactivate: [confirmLeaveGuard]*/, data: { role: 'editor' } },
 
-  { path: 'approved', component: ApprovedListComponent },
-  { path : 'rejected', component: RejectedListComponent },
+  { path: 'approved', component: ApprovedListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
+  { path : 'rejected', component: RejectedListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
   //{  path : 'create-update', component: CreateUpdateComponent },
 
-  { path: 'reviews', component: ReviewListComponent },
-  { path: 'review-post', component: ReviewPostComponent },
+  { path: 'reviews', component: ReviewListComponent, canActivate: [authGuard] , data: { role: 'head_editor' }},
+  { path: 'review-post', component: ReviewPostComponent, canActivate: [authGuard] , data: { role: 'head_editor' }},
+  { path : '**', component: Error404Component }
 ];

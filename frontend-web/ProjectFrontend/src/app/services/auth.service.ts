@@ -17,6 +17,10 @@ export class AuthService {
 
   private selectedUser: User | null = null;
 
+  isLoggedIn(): boolean {
+    return this.selectedUser !== null;
+  }
+
   setUser(name: string, role: string): void {
     this.selectedUser = { name, role };
   }

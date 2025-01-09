@@ -27,8 +27,8 @@ export class PostListComponent implements OnInit {
     }
 
     navigateToComments(post: Post) {
-        this.postService.setSelectedPost(post);
-        this.router.navigate(['/post-comments']);
+        //this.postService.setSelectedPost(post);
+        this.router.navigate(['/post-comments', post.id]);
     }
 
     handleFilter(filter: Filter){
@@ -47,10 +47,6 @@ export class PostListComponent implements OnInit {
     const matchesEndDate = filter.endDate 
         ? postDate.getTime() <= filter.endDate.getTime() 
         : true;
-    
-
         return matchesAuthor && matchesContent && matchesStartDate && matchesEndDate;
     }
-       
-    
 }
