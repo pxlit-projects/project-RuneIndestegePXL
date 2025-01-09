@@ -3,22 +3,24 @@
     <mat-label class="p-4 bg-red-100 text-red-800 space-y-2">Review: {{ post.review }}</mat-label>
   }
   <br>
-  <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm.form.valid)" class="space-y-4">
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="space-y-4">
     <div class="space-y-2">
       <mat-form-field class="w-full">
         <mat-label>Title</mat-label>
-        <input
-          matInput
-          type="text"
-          id="title"
-          name="title"
-          [(ngModel)]="post.title"
-          required
-          #title="ngModel"
-        />
-        @if (title.invalid && (title.dirty || title.touched)) {
+        <input matInput type="text" formControlName="title" />
+        @if(postForm.get('title')?.hasError('required') && postForm.get('title')?.touched){
           <mat-error>
             Title is required
+          </mat-error>
+        }
+        @if( postForm.get('title')?.hasError('minlength') && postForm.get('title')?.touched){
+          <mat-error >
+            Title is too short
+          </mat-error>
+        }
+        @if(postForm.get('title')?.hasError('maxlength') && postForm.get('title')?.touched){
+          <mat-error >
+            Title is too long
           </mat-error>
         }
 
@@ -28,36 +30,43 @@
     <div class="space-y-2">
       <mat-form-field class="w-full">
         <mat-label>Content</mat-label>
-        <textarea
-          matInput
-          id="content"
-          name="content"
-          [(ngModel)]="post.content"
-          required
-          #content="ngModel"
-          rows="6"
-        ></textarea>
-        @if(content.invalid && (content.dirty || content.touched)){
-          <mat-error>
+        <textarea matInput formControlName="content" rows="6"></textarea>
+        @if(postForm.get('content')?.hasError('required') && postForm.get('content')?.touched){
+          <mat-error >
             Content is required
           </mat-error>
         }
+        @if(postForm.get('content')?.hasError('minlength') && postForm.get('content')?.touched){
+          <mat-error >
+            Content is too short
+          </mat-error>
+        }
+        @if(postForm.get('content')?.hasError('maxlength') && postForm.get('content')?.touched){
+          <mat-error >
+            Content is too long
+          </mat-error>
+        }
       </mat-form-field>
-      
-  </div>
-
+    </div>
 
     <div class="flex space-x-4">
       <button
-mat-raised-button color="primary" type="submit" class="ml-2" style="background-color: white; color: black;"
-        [disabled]="!postForm.form.valid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="ml-2"
+        style="background-color: white; color: black;"
+        [disabled]="postForm.invalid"
       >
         Submit Post
       </button>
       <button
         mat-raised-button
-        color="primary" type="submit" class="ml-2" style="background-color: white; color: black;"        type="button"
-        [disabled]="!postForm.form.valid"
+        color="primary"
+        class="ml-2"
+        style="background-color: white; color: black;"
+        type="button"
+        [disabled]="postForm.invalid"
         (click)="saveDraft()"
       >
         Save as Draft

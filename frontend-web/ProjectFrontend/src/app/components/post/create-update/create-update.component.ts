@@ -9,9 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-update',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -28,30 +30,37 @@ export class CreateUpdateComponent implements OnInit {
   private postService: PostService = inject(PostService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
   private router: Router = inject(Router);
+  private fb: FormBuilder = inject(FormBuilder);
   post: Post = {
     title: '',
     content: ''
   };
-  isEdit = false;
+  postForm: FormGroup = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+    content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]]
+  });
 
   ngOnInit(): void {
     this.postService.selectedPost$.subscribe(selectedPost => {
       if (selectedPost) {
         this.post = { ...selectedPost };
-        this.isEdit = true;
+        this.postForm.setValue({
+          title: this.post.title,
+          content: this.post.content
+        });
       }
     });
-    
   }
 
   ngOnDestroy(): void {
     this.postService.clearSelectedPost();
   }
 
-  onSubmit(isValid: boolean): void {
-    if (!isValid) return;
+  onSubmit(): void {
+    if (this.postForm.invalid) return;
+    const { title, content } = this.postForm.value;
 
-    this.postService.submitPost(this.post.title, this.post.content).subscribe({
+    this.postService.submitPost(title, content).subscribe({
       next: () => this.router.navigate(['/posts']),
       error: (error) => {
         console.error('Error submitting post:', error);
@@ -61,7 +70,10 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   saveDraft(): void {
-    this.postService.createPostAsDraft(this.post.title, this.post.content).subscribe({
+    if (this.postForm.invalid) return;
+    const { title, content } = this.postForm.value;
+
+    this.postService.createPostAsDraft(title, content).subscribe({
       next: () => this.router.navigate(['/drafts']),
       error: (error) => {
         console.error('Error saving draft:', error);

@@ -11,7 +11,7 @@ import { Comment as PostComment  } from '../models/comment.model';
 export class CommentService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private apiUrl = `${environment.apiUrlComment}`;
+  private apiUrl = `${environment.apiUrl}/api/comments`;
   private getHeaders(): HttpHeaders {
     return new HttpHeaders()
       .set('User', this.authService.getUserName())

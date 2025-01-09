@@ -188,7 +188,6 @@ public class ReviewServiceTests {
         PostReviewDTO reviewDTO = new PostReviewDTO(
                 postReview.getId(), "Rejected for test", "Title", "Content", "Author", 1L, false);
 
-        // Capture queue message
         ArgumentCaptor<PostReviewShortMessageDTO> queueMessageCaptor =
                 ArgumentCaptor.forClass(PostReviewShortMessageDTO.class);
 
@@ -224,19 +223,16 @@ public class ReviewServiceTests {
     void testReviewPost() {
         // Given
         PostReview postReview = new PostReview();
-        // Remove explicit ID setting - let JPA handle it
         postReview.setTitle("Title");
         postReview.setContent("Content");
         postReview.setAuthor("Author");
         postReview.setPostId(1L);
         postReview.setApproved(false);
 
-        // Save first and capture the generated ID
         PostReview savedReview = reviewRepository.save(postReview);
 
-        // Use the saved entity's ID in the DTO
         PostReviewDTO postReviewDTO = new PostReviewDTO(
-                savedReview.getId(),  // Use the actual saved ID
+                savedReview.getId(),
                 "Review",
                 "Title",
                 "Content",
@@ -246,13 +242,13 @@ public class ReviewServiceTests {
         );
 
         // When
-        reviewService.reviewPost(savedReview.getId(), postReviewDTO);  // Use the actual saved ID
+        reviewService.reviewPost(savedReview.getId(), postReviewDTO);
 
         // Then
-        // Verify the review no longer exists (since it should be deleted)
+        // Verify
         assertTrue(reviewRepository.findById(savedReview.getId()).isEmpty());
 
-        // Verify notifications and queue messages
+        // Verify
         verify(rabbitTemplate).convertAndSend(
                 eq("PostQueue"),
                 (Object) argThat(msg -> msg instanceof PostReviewShortMessageDTO
@@ -266,5 +262,5 @@ public class ReviewServiceTests {
                                 notification.message().contains("approved")
                 )
         );
-        }
+    }
 }

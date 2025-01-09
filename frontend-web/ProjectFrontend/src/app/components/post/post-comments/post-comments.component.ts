@@ -39,7 +39,6 @@ export class PostCommentsComponent implements OnInit {
 
   ngOnInit(): void {    
     this.refreshComments();
-
   }
 
   private refreshComments(): void {

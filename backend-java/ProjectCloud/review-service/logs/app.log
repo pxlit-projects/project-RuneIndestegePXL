@@ -1,0 +1,17 @@
+2025-01-09T22:39:16.537+0100 INFO               [main]                         be.pxl.services.controller.ReviewControllerTests - Starting ReviewControllerTests using Java 21.0.2 with PID 396044 (started by runei in C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\review-service)
+2025-01-09T22:39:16.540+0100 INFO               [main]                         be.pxl.services.controller.ReviewControllerTests - No active profile set, falling back to 1 default profile: "default"
+2025-01-09T22:39:26.691+0100 INFO               [main]                         be.pxl.services.controller.ReviewControllerTests - Started ReviewControllerTests in 10.969 seconds (process running for 33.279)
+2025-01-09T22:39:27.262+0100 INFO               [main]                         be.pxl.services.controller.ReviewController - Reviewing review with id: 1
+2025-01-09T22:39:27.378+0100 INFO               [main]                         be.pxl.services.controller.ReviewController - Getting all reviewable posts
+2025-01-09T22:39:47.247+0100 INFO               [main]                         be.pxl.services.services.ReviewServiceTests - Starting ReviewServiceTests using Java 21.0.2 with PID 396044 (started by runei in C:\Users\runei\Documents\Github\project-RuneIndestegePXL\backend-java\ProjectCloud\review-service)
+2025-01-09T22:39:47.248+0100 INFO               [main]                         be.pxl.services.services.ReviewServiceTests - No active profile set, falling back to 1 default profile: "default"
+2025-01-09T22:39:49.680+0100 INFO               [main]                         be.pxl.services.services.ReviewServiceTests - Started ReviewServiceTests in 2.524 seconds (process running for 56.268)
+2025-01-09T22:39:49.729+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Approving review with id: 999
+2025-01-09T22:39:49.889+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Getting all reviews
+2025-01-09T22:39:49.969+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Approving review with id: 2
+2025-01-09T22:39:49.972+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Review sent to post service
+2025-01-09T22:39:50.028+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Approving review with id: 3
+2025-01-09T22:39:50.030+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Review sent to post service
+2025-01-09T22:39:50.077+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Post with id: 1 saved for review
+2025-01-09T22:39:50.128+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Approving review with id: 5
+2025-01-09T22:39:50.132+0100 INFO               [main]                         be.pxl.services.services.ReviewService - Review sent to post service

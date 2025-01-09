@@ -78,16 +78,7 @@ public class PostService implements IPostService {
     public List<PostDTO> getPublishedPosts() {
         return convertPostsToPostDTOs(postRepository.findByStatus(PostStatus.PUBLISHED));
     }
-    /*
-    public List<PostDTO> searchPosts(PostSearchCriteria criteria) {
-        Specification<Post> spec = Specification.where(PostSpecifications.hasStatus(PostStatus.PUBLISHED))
-                .and(PostSpecifications.withAuthor(criteria.getAuthor()))
-                .and(PostSpecifications.withContent(criteria.getContent()))
-                .and(PostSpecifications.withDateBetween(criteria.getStartDate(), criteria.getEndDate()));
 
-        return convertPostsToPostDTOs(postRepository.findAll(spec));
-    }
-*/
     public PostDTO publishPost(Long id, String user) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFoundException("Post not found"));
