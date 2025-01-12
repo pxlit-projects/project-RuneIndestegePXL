@@ -1,18 +1,16 @@
-FROM node:18 AS build
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-RUN npm update
-
+FROM node:18.19-alpine as build
+WORKDIR /usr/src/app
 COPY . .
+RUN npm install
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx
+COPY --from=build /usr/src/app/dist/project-frontend/browser /usr/share/nginx/html
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-COPY --from=build /app/dist/project-frontend/browser /usr/share/nginx/html
+ENV APIURL=http://localhost:8083
 
-EXPOSE 80
-
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  frontend:
+    build:
+      context: .
+    environment:
+      - APIURL=http://localhost:8083
+    ports:
+      - "80:80"

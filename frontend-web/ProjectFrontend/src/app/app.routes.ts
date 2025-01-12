@@ -10,7 +10,6 @@ import { RejectedListComponent } from './components/post/rejected-list/rejected-
 import { ApprovedListComponent } from './components/post/approved-list/approved-list.component';
 import { Error404Component } from './components/Error404/Error404.component';
 import { authGuard } from './guards/auth.guard';
-//import { confirmLeaveGuard } from './guards/confirm-leave.guard';
 
 
 export const routes: Routes = [
@@ -23,11 +22,10 @@ export const routes: Routes = [
   { path: 'notifications', component: PostListComponent, canActivate: [authGuard] ,  data: { role: 'editor' }},
 
   { path: 'drafts', component: DraftListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
-  { path: 'create-update', component: CreateUpdateComponent, canActivate: [authGuard] /*, canDeactivate: [confirmLeaveGuard]*/, data: { role: 'editor' } },
+  { path: 'create-update', component: CreateUpdateComponent, canActivate: [authGuard] , data: { role: 'editor' } },
 
   { path: 'approved', component: ApprovedListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
   { path : 'rejected', component: RejectedListComponent, canActivate: [authGuard] , data: { role: 'editor' }},
-  //{  path : 'create-update', component: CreateUpdateComponent },
 
   { path: 'reviews', component: ReviewListComponent, canActivate: [authGuard] , data: { role: 'head_editor' }},
   { path: 'review-post', component: ReviewPostComponent, canActivate: [authGuard] , data: { role: 'head_editor' }},

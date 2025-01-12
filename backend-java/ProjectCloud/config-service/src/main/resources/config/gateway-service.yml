@@ -11,8 +11,8 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "http://localhost:4200"
-              - "http://127.0.0.1:4200"
+              - "http://localhost"
+              - "http://127.0.0.1"
             allowedMethods:
               - "GET"
               - "POST"
@@ -28,11 +28,17 @@ spring:
               - "X-Requested-With"
               - "Access-Control-Request-Method"
               - "Access-Control-Request-Headers"
+              - "Access-Control-Allow-Origin"
+              - "Access-Control-Allow-Credentials"
+              - "Access-Control-Allow-Headers"
+              - "Access-Control-Allow-Methods"
               - "User"
               - "Role"
             exposedHeaders:
               - "Access-Control-Allow-Origin"
               - "Access-Control-Allow-Credentials"
+              - "Access-Control-Allow-Headers"
+              - "Access-Control-Allow-Methods"
             allowCredentials: true
       routes:
         - id: post-service-posts
