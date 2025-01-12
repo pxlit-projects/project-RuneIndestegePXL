@@ -24,7 +24,7 @@ public class PostController {
     private static final Logger log = LoggerFactory.getLogger(PostController.class.getName());
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(IPostService postService) {
         this.postService = postService;
     }
 

@@ -3,6 +3,7 @@ package be.pxl.services.services;
 import be.pxl.services.controller.dto.PostDTO;
 import be.pxl.services.controller.request.PostUpdateRequest;
 import be.pxl.services.controller.response.PostReviewedResponse;
+import be.pxl.services.domain.Post;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -27,4 +28,5 @@ public interface IPostService {
     List<PostReviewedResponse> getRejectedPosts(String user);
 
     List<PostDTO> getApprovedPosts(String user);
+
 }

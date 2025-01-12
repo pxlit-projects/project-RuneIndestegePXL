@@ -5,6 +5,7 @@ import be.pxl.services.controller.request.PostUpdateRequest;
 import be.pxl.services.controller.response.PostReviewedResponse;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.PostStatus;
+import be.pxl.services.exception.UserNotAuthorizedException;
 import be.pxl.services.repository.NotificationRepository;
 import be.pxl.services.repository.PostRepository;
 import be.pxl.services.services.INotificationService;
@@ -22,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -29,7 +31,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -87,58 +89,55 @@ public class PostControllerTests {
     }
 
 
-
     @Test
     void shouldGetPublishedPostById() throws Exception {
-        //PostDTO postDTO = new PostDTO(1L, "Title", "Content", "Author", null);
+        //Arrange
         Post post = new Post();
-        post.setId(1L);
         post.setTitle("Title");
         post.setContent("Content");
         post.setAuthor("testUser");
         post.setStatus(PostStatus.PUBLISHED);
-        postRepository.save(post);
-
-        mockMvc.perform(get("/api/posts/1"))
+        Long postId = postRepository.save(post).getId();
+        //Act & Assert
+        mockMvc.perform(get("/api/posts/" + postId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.id").value(postId))
                 .andExpect(jsonPath("$.title").value("Title"))
                 .andExpect(jsonPath("$.content").value("Content"))
                 .andExpect(jsonPath("$.author").value("testUser"));
     }
 
-
     @Test
     void shouldPublishPost() throws Exception {
+        //Arrange
         Post post = new Post();
-        post.setId(12L);
         post.setTitle("Title");
         post.setContent("Content");
         post.setAuthor("testUser");
         post.setStatus(PostStatus.ACCEPTED);
-        postRepository.save(post);
-
-        mockMvc.perform(put("/api/posts/1/publish")
+        Long postId = postRepository.save(post).getId();
+        //Act
+        mockMvc.perform(put("/api/posts/" + postId + "/publish")
                         .header("User", "testUser")
                         .header("Role", "editor"))
                 .andExpect(status().isOk());
-
-        Post post2 = postRepository.findById(12L).orElseThrow();
+        //Assert
+        Post post2 = postRepository.findById(postId).orElseThrow();
         assertEquals(post2.getStatus(), PostStatus.PUBLISHED);
     }
-
     @Test
     void shouldSubmitPost() throws Exception {
-        PostDTO postDTO = new PostDTO(11L, "Title", "Content", "testUser", null);
-
+        //Arrange
         Post post = new Post();
-        post.setId(11L);
         post.setTitle("Title");
         post.setContent("Content");
         post.setAuthor("testUser");
         post.setStatus(PostStatus.DRAFT);
-        postRepository.save(post);
+        Long postId = postRepository.save(post).getId();
 
+        PostDTO postDTO = new PostDTO(postId, "Title", "Content", "testUser", null);
+
+        //Act & Assert
         mockMvc.perform(put("/api/posts/submit")
                         .header("User", "testUser")
                         .header("Role", "editor")
@@ -146,7 +145,9 @@ public class PostControllerTests {
                         .content(objectMapper.writeValueAsString(postDTO)))
                 .andExpect(status().isOk());
 
-        Post post2 = postRepository.findById(11L).orElseThrow();
+        Post post2 = postRepository.findById(postId).orElseThrow();
+
+        //Assert
         assertEquals(post2.getTitle(), "Title");
         assertEquals(post2.getContent(), "Content");
         assertEquals(post2.getAuthor(), "testUser");
@@ -155,25 +156,25 @@ public class PostControllerTests {
 
     @Test
     void shouldCorrectPost() throws Exception {
+        //Arrange
         Post post = new Post();
-        post.setId(10L);
         post.setTitle("Title");
         post.setContent("Content");
         post.setAuthor("testUser");
-        postRepository.save(post);
+        Long postId = postRepository.save(post).getId();
 
         PostUpdateRequest updateRequest = new PostUpdateRequest();
         updateRequest.setTitle("Updated Title");
         updateRequest.setContent("Updated Content");
-
-        mockMvc.perform(put("/api/posts/10")
+        //Act & Assert
+        mockMvc.perform(put("/api/posts/" + postId)
                         .header("User", "testUser")
                         .header("Role", "editor")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateRequest)))
                 .andExpect(status().isOk());
-
-        Post updatedPost = postRepository.findById(10L).orElseThrow();
+        //Assert
+        Post updatedPost = postRepository.findById(postId).orElseThrow();
         assertEquals(updatedPost.getTitle(), "Updated Title");
         assertEquals(updatedPost.getContent(), "Updated Content");
     }
@@ -181,14 +182,16 @@ public class PostControllerTests {
 
     @Test
     void shouldCreatePostAsDraft() throws Exception {
+        //Arrange
         PostDTO postDTO = new PostDTO(null, "Title", "Content", "testUser", null);
+        //Act & Assert
         mockMvc.perform(post("/api/posts")
                         .header("User", "testUser")
                         .header("Role", "editor")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(postDTO)))
                 .andExpect(status().isCreated());
-
+        //Assert
         Post post = postRepository.findById(2L).orElseThrow();
         assertEquals(post.getTitle(), "Title");
         assertEquals(post.getContent(), "Content");
@@ -198,6 +201,7 @@ public class PostControllerTests {
 
     @Test
     void shouldCheckIfPostExists() throws Exception {
+        //Arrange
         Post post = new Post();
         post.setId(1L);
         post.setTitle("Title");
@@ -206,20 +210,21 @@ public class PostControllerTests {
         post.setStatus(null);
 
         postRepository.save(post);
-
+        //Act & Assert
         mockMvc.perform(get("/api/posts/1/exists"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void shouldGetDraftPosts() throws Exception {
+        //Arrange
         Post post = new Post();
         post.setTitle("Title");
         post.setContent("Content");
         post.setAuthor("testUser");
         post.setStatus(PostStatus.DRAFT);
         Long id = postRepository.save(post).getId();
-
+        //Act & Assert
         mockMvc.perform(get("/api/posts/draft/all")
                         .header("User", "testUser"))
                 .andExpect(status().isOk())
@@ -231,6 +236,7 @@ public class PostControllerTests {
 
     @Test
     void shouldGetPublishedPosts() throws Exception {
+        //Arrange
         Post post = new Post();
         post.setId(1L);
         post.setTitle("Title");
@@ -238,7 +244,7 @@ public class PostControllerTests {
         post.setAuthor("testUser");
         post.setStatus(PostStatus.PUBLISHED);
         postRepository.save(post);
-
+        //Act & Assert
         mockMvc.perform(get("/api/posts/published")
                         .header("User", "testUser"))
                 .andExpect(status().isOk())
@@ -250,6 +256,7 @@ public class PostControllerTests {
 
     @Test
     void shouldGetRejectedPosts() throws Exception {
+        //Arrange
         Post post = new Post();
         post.setId(1L);
         post.setTitle("Title");
@@ -258,7 +265,7 @@ public class PostControllerTests {
         post.setStatus(PostStatus.REJECTED);
         post.setReview("Review");
         Long id = postRepository.save(post).getId();
-
+        //Act & Assert
         mockMvc.perform(get("/api/posts/rejected")
                         .header("User", "testUser"))
                 .andExpect(status().isOk())
@@ -270,6 +277,7 @@ public class PostControllerTests {
 
     @Test
     void shouldGetApprovedPosts() throws Exception {
+        //Arrange
         Post post = new Post();
         post.setId(1L);
         post.setTitle("Title");
@@ -278,12 +286,49 @@ public class PostControllerTests {
         post.setStatus(PostStatus.ACCEPTED);
         post.setReview("Review");
         postRepository.save(post);
-
+        //Act & Assert
         mockMvc.perform(get("/api/posts/approved")
                         .header("User", "testUser"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value("Title"))
                 .andExpect(jsonPath("$[0].content").value("Content"))
                 .andExpect(jsonPath("$[0].author").value("testUser"));
+    }
+
+
+    @Test
+    void shouldNotThrowWhenRoleIsEditor() {
+        // Arrange
+        IPostService mockPostService = Mockito.mock(IPostService.class);
+        PostController controller = new PostController(mockPostService);
+        String role = "editor";
+
+        // Act & Assert
+        assertDoesNotThrow(() -> controller.checkIfUserEditor(role));
+    }
+
+    @Test
+    void shouldNotThrowWhenRoleIsHeadEditor() {
+        // Arrange
+        IPostService mockPostService = Mockito.mock(IPostService.class);
+        PostController controller = new PostController(mockPostService);
+        String role = "head_editor";
+
+        // Act & Assert
+        assertDoesNotThrow(() -> controller.checkIfUserEditor(role));
+    }
+
+    @Test
+    void shouldThrowWhenRoleIsNotEditorOrHeadEditor() {
+        // Arrange
+        IPostService mockPostService = Mockito.mock(IPostService.class);
+        PostController controller = new PostController(mockPostService);
+        String role = "viewer";
+
+        // Act & Assert
+        UserNotAuthorizedException exception = assertThrows(UserNotAuthorizedException.class,
+                () -> controller.checkIfUserEditor(role)
+        );
+        assertEquals("User is not a editor", exception.getMessage());
     }
 }

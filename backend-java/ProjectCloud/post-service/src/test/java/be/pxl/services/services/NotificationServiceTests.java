@@ -84,7 +84,7 @@ public class NotificationServiceTests {
         List<NotificationResponse> notifications = notificationService.getNotifications("testUser");
 
         assertEquals(1, notifications.size());
-        assertEquals("Notification", notifications.get(0).message());
+        assertEquals("Notification", notifications.getFirst().message());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class NotificationServiceTests {
 
         List<Notification> notifications= notificationRepository.findAll();
         assertEquals(1, notifications.size());
-        assertEquals("Notification", notifications.get(0).getMessage());
-        assertEquals("testUser", notifications.get(0).getAuthor());
+        assertEquals("Notification", notifications.getFirst().getMessage());
+        assertEquals("testUser", notifications.getFirst().getAuthor());
     }
 
     @Test
