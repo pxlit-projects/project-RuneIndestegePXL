@@ -1,7 +1,6 @@
 # Fullstack Java Project
 
-## Firstname Lastname (Class)
-Change the name and Class in the title above
+## Rune Indestege (3AONC)
 
 ## Folder structure
 
@@ -18,3 +17,8 @@ Each folder contains its own specific `.gitignore` file.
 ## How to setup and run this application
 
 :heavy_check_mark:_(COMMENT) Add setup instructions and provide some direction to run the whole  application: frontend to backend._
+
+To start build and start the backend and frontend dockercompose.
+Then for the backend start the config-service > discovery-service > gateway-service > post-service > comment-service & review-service.
+After that click on the port of the docker containerand it will bring you to the site.
+
