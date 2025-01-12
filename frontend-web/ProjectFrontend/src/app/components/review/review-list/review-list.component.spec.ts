@@ -22,7 +22,7 @@ describe('ReviewListComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [ReviewListComponent],
+      imports: [ReviewListComponent],
       providers: [
         { provide: ReviewService, useValue: reviewServiceMock },
         { provide: Router, useValue: routerMock }
