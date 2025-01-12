@@ -66,7 +66,6 @@ describe('CreateUpdateComponent', () => {
     component.onSubmit();
 
     expect(postService.submitPost).toHaveBeenCalledWith('Test Title', 'Test Content');
-    // Add additional expectations for error handling if necessary
   });
 
   it('should save the draft successfully', () => {
@@ -86,5 +85,55 @@ describe('CreateUpdateComponent', () => {
     component.saveDraft();
 
     expect(postService.createPostAsDraft).toHaveBeenCalledWith('Draft Title', 'Draft Content');
+  });
+  //thought this would increase coverage but it did not :(
+  it('should display required error message for title when touched and empty', () => {
+    const titleControl = component.postForm.get('title');
+    titleControl?.markAsTouched();
+    titleControl?.setValue('');
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('mat-error');
+    expect(errorMessage.textContent).toContain('Title is required');
+  });
+
+  it('should display minlength error message for title when touched and too short', () => {
+    const titleControl = component.postForm.get('title');
+    titleControl?.markAsTouched();
+    titleControl?.setValue('a');
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('mat-error');
+    expect(errorMessage.textContent).toContain('Title is too short');
+  });
+
+  it('should display maxlength error message for title when touched and too long', () => {
+    const titleControl = component.postForm.get('title');
+    titleControl?.markAsTouched();
+    titleControl?.setValue('a'.repeat(101));
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('mat-error');
+    expect(errorMessage.textContent).toContain('Title is too long');
+  });
+
+  it('should display required error message for content when touched and empty', () => {
+    const contentControl = component.postForm.get('content');
+    contentControl?.markAsTouched();
+    contentControl?.setValue('');
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('mat-error');
+    expect(errorMessage.textContent).toContain('Content is required');
+  });
+
+  it('should display minlength error message for content when touched and too short', () => {
+    const contentControl = component.postForm.get('content');
+    contentControl?.markAsTouched();
+    contentControl?.setValue('a');
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('mat-error');
+    expect(errorMessage.textContent).toContain('Content is too short');
   });
 });

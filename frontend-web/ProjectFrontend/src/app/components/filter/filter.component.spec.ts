@@ -42,7 +42,6 @@ describe('FilterComponent', () => {
   it('should emit filterChanged event with processed filter on form submit', () => {
     spyOn(component.filterChanged, 'emit');
 
-    // Create dates in the local timezone
     const startDate = new Date('2023-01-01T00:00:00');
     const endDate = new Date('2023-01-02T00:00:00');
 
@@ -60,16 +59,14 @@ describe('FilterComponent', () => {
 
     component.onSubmit(form);
 
-    // Instead of comparing exact dates, we'll verify the essential properties
     const emittedValue = (component.filterChanged.emit as jasmine.Spy).calls.mostRecent().args[0];
     
     expect(emittedValue.author).toBe('john');
     expect(emittedValue.content).toBe('test content');
     expect(emittedValue.startDate.getFullYear()).toBe(2023);
-    expect(emittedValue.startDate.getMonth()).toBe(0); // January is 0
+    expect(emittedValue.startDate.getMonth()).toBe(0);
     expect(emittedValue.startDate.getDate()).toBe(1);
     
-    // For end date, verify it's set to the end of the day
     expect(emittedValue.endDate.getFullYear()).toBe(2023);
     expect(emittedValue.endDate.getMonth()).toBe(0);
     expect(emittedValue.endDate.getDate()).toBe(2);

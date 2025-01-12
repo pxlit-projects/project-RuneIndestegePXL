@@ -55,4 +55,40 @@ describe('ApprovedListComponent', () => {
     expect(postServiceMock.publishPost).toHaveBeenCalledWith(postId);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/posts']);
   });
+  //thought this would increase coverage but it did not :(
+  it('should render posts and publish button', () => {
+    const mockPosts = [{ id: 1, title: 'Post 1' }, { id: 2, title: 'Post 2' }];
+    (postServiceMock.getApprovedPosts as jasmine.Spy).and.returnValue(of(mockPosts));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const postElements = fixture.nativeElement.querySelectorAll('app-post');
+    expect(postElements.length).toBe(2);
+
+    const publishButtons = fixture.nativeElement.querySelectorAll('button');
+    expect(publishButtons.length).toBe(2);
+  });
+
+  it('should call publishPost when publish button is clicked', () => {
+    const mockPosts = [{ id: 1, title: 'Post 1' }];
+    (postServiceMock.getApprovedPosts as jasmine.Spy).and.returnValue(of(mockPosts));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const publishButton = fixture.nativeElement.querySelector('button');
+    publishButton.click();
+
+    expect(postServiceMock.publishPost).toHaveBeenCalledWith(1);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/posts']);
+  });
+
+  it('should display "No posts found" when there are no posts', () => {
+    (postServiceMock.getApprovedPosts as jasmine.Spy).and.returnValue(of([]));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const noPostsMessage = fixture.nativeElement.querySelector('.text-center.text-gray-500');
+    expect(noPostsMessage).toBeTruthy();
+    expect(noPostsMessage.textContent).toContain('No posts found');
+  });
 });

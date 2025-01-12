@@ -36,7 +36,7 @@ export class FilterComponent {
         endDate: this.filter.endDate ? new Date(this.filter.endDate) : undefined
       };
 
-      // If we have an end date, set it to the end of that day
+      // end of day :p 
       if (processedFilter.endDate) {
         processedFilter.endDate.setHours(23, 59, 59, 999);
       }
