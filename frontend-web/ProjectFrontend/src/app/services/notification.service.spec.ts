@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { NotificationService } from './notification.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { Notification } from '../models/notification.model';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('NotificationService', () => {
   let service: NotificationService;
@@ -14,8 +15,9 @@ describe('NotificationService', () => {
     const spy = jasmine.createSpyObj('AuthService', ['getUserName', 'getUserRole']);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         NotificationService,
         { provide: AuthService, useValue: spy }
       ]

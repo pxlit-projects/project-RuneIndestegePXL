@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { Post } from '../../../models/post.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Filter } from '../../../models/filter.model';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -15,8 +16,8 @@ describe('PostListComponent', () => {
   beforeEach(async () => {
     postServiceMock = {
       getPublishedPosts: jasmine.createSpy('getPublishedPosts').and.returnValue(of([
-        { id: 1, author: 'Author1', content: 'Content1', createdAt: new Date() },
-        { id: 2, author: 'Author2', content: 'Content2', createdAt: new Date() }
+        { id: 1, author: 'Author1', content: 'Content1', createdAt: new Date('2023-01-01') },
+        { id: 2, author: 'Author2', content: 'Content2', createdAt: new Date('2023-06-01') }
       ]))
     };
 
@@ -57,13 +58,82 @@ describe('PostListComponent', () => {
     component.navigateToComments(post);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/post-comments', post.id]);
   });
-/*
-  it('should filter posts based on filter criteria', () => {
-    const filter: Filter = { author: 'Author1', content: '', startDate: undefined, endDate: undefined };
+
+  it('should filter posts by author', () => {
+    const filter: Filter = { author: 'author1', content: '', startDate: undefined, endDate: undefined };
     component.handleFilter(filter);
     expect(component.filteredData.length).toBe(1);
     expect(component.filteredData[0].author).toBe('Author1');
   });
-  */
+
+  it('should filter posts by content', () => {
+    const filter: Filter = { author: '', content: 'content2', startDate: undefined, endDate: undefined };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].content).toBe('Content2');
+  });
+
+  it('should filter posts by startDate', () => {
+    const filter: Filter = { author: '', content: '', startDate: new Date('2023-01-01'), endDate: undefined };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(2);
+  });
+
+  it('should filter posts by endDate', () => {
+    const filter: Filter = { author: '', content: '', startDate: undefined, endDate: new Date('2023-12-31') };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(2);
+  });
+
+  it('should filter posts by author and content', () => {
+    const filter: Filter = { author: 'author1', content: 'content1', startDate: undefined, endDate: undefined };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].author).toBe('Author1');
+    expect(component.filteredData[0].content).toBe('Content1');
+  });
+
+  it('should filter posts by author and startDate', () => {
+    const filter: Filter = { author: 'author1', content: '', startDate: new Date('2023-01-01'), endDate: undefined };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].author).toBe('Author1');
+  });
+
+  it('should filter posts by author and endDate', () => {
+    const filter: Filter = { author: 'author1', content: '', startDate: undefined, endDate: new Date('2023-12-31') };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].author).toBe('Author1');
+  });
+
+  it('should filter posts by content and startDate', () => {
+    const filter: Filter = { author: '', content: 'content1', startDate: new Date('2023-01-01'), endDate: undefined };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].content).toBe('Content1');
+  });
+
+  it('should filter posts by content and endDate', () => {
+    const filter: Filter = { author: '', content: 'content1', startDate: undefined, endDate: new Date('2023-12-31') };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].content).toBe('Content1');
+  });
+
+  it('should filter posts by startDate and endDate', () => {
+    const filter: Filter = { author: '', content: '', startDate: new Date('2023-01-01'), endDate: new Date('2023-12-31') };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(2);
+  });
+
+  it('should filter posts by all criteria', () => {
+    const filter: Filter = { author: 'author1', content: 'content1', startDate: new Date('2023-01-01'), endDate: new Date('2023-12-31') };
+    component.handleFilter(filter);
+    expect(component.filteredData.length).toBe(1);
+    expect(component.filteredData[0].author).toBe('Author1');
+    expect(component.filteredData[0].content).toBe('Content1');
+  });
+
 });
 

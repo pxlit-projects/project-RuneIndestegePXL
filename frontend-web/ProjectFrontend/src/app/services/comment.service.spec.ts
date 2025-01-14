@@ -2,7 +2,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { CommentService } from './comment.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { Comment } from '../models/comment.model';
@@ -16,8 +16,8 @@ describe('Service: Comment', () => {
     const spy = jasmine.createSpyObj('AuthService', ['getUserName', 'getUserRole']);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
+        provideHttpClientTesting(),
         CommentService,
         { provide: AuthService, useValue: spy }
       ]
