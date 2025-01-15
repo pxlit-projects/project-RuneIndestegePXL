@@ -4,6 +4,7 @@ import { ReviewService } from './review.service';
 import { AuthService } from './auth.service';
 import { Review } from '../models/review.model';
 import { environment } from '../../environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ReviewService', () => {
   let service: ReviewService;
@@ -15,8 +16,9 @@ describe('ReviewService', () => {
 
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
         provideHttpClientTesting(),
-        ReviewService,
+          ReviewService,
         { provide: AuthService, useValue: spy }
       ]
     });

@@ -1,11 +1,10 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed } from '@angular/core/testing';
 import { CommentService } from './comment.service';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { Comment } from '../models/comment.model';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('Service: Comment', () => {
   let service: CommentService;
@@ -17,8 +16,9 @@ describe('Service: Comment', () => {
 
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
         provideHttpClientTesting(),
-        CommentService,
+          CommentService,
         { provide: AuthService, useValue: spy }
       ]
     });
